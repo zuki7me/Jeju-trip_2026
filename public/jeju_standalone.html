@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>濟州島自駕秋旅手冊 - Jeju Road Trip Guide (單檔離線版)</title>
+  <meta name="description" content="濟州島8天7夜自駕旅行互動手冊，包含完整每日行程、Naver 地圖精準自駕導航、景點打卡清單、美食購物攻略、即時記帳與旅遊小幫手。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS via CDN (免安裝、直接開啟) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            serif: ['"Noto Serif TC"', 'Georgia', 'serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+          },
+          colors: {
+            warmpaper: '#FAF8F5',
+            sandcard: '#F4F0E8',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="text-stone-800 antialiased selection:bg-stone-200 min-h-screen flex flex-col justify-between">
+
+  <!-- ================= TOP HEADER ================= -->
+  <header class="bg-[#F4F0E8] border-b border-stone-200/80 pt-5 pb-4 px-4 sm:px-6 shadow-xs sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500 mb-2 font-mono">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-stone-200/70 text-stone-700 font-medium">
+            <i data-lucide="compass" class="w-3.5 h-3.5 text-stone-600"></i>
+            JEJU AUTUMN SELF-DRIVE
+          </span>
+          <span class="hidden sm:inline">·</span>
+          <span class="hidden sm:inline">8 DAYS / 7 NIGHTS</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 text-stone-600 bg-stone-200/50 px-2 py-0.5 rounded-md">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-stone-500"></i>
+            <span>濟州 <strong id="jeju-time">--:--</strong></span>
+            <span class="text-stone-400 text-[10px]">(台 <span id="tw-time">--:--</span>)</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-1 text-stone-600">
+            <i data-lucide="cloud-sun" class="w-3.5 h-3.5 text-amber-600"></i>
+            <span>18°C 晴時多雲</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 font-serif">
+            濟州島自駕秋旅手冊
+          </h1>
+          <p class="text-xs text-stone-600 mt-0.5">
+            2026.10.26 (一) – 11.02 (一) · 秋楓 ✕ 蜜橘 ✕ 抹茶 ✕ 黑豬肉 ✕ 白帶魚
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 self-start sm:self-auto">
+          <button
+            onclick="resetAllData()"
+            class="px-2.5 py-1.5 rounded-xl text-xs text-stone-600 hover:text-stone-900 bg-white/80 border border-stone-200 transition-colors flex items-center gap-1 cursor-pointer shadow-2xs"
+            title="重置行程資料"
+          >
+            <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+            <span>重置行程</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT APP ================= -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-5 pb-28">
+
+    <!-- TAB 1: ITINERARY -->
+    <section id="tab-itinerary">
+      <!-- Days Selector Horizontal List -->
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-3 mb-4" id="days-bar">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Current Day Overview Card -->
+      <div id="day-overview-card" class="bg-[#F4F0E8] border border-stone-200/90 rounded-2xl p-4 sm:p-5 mb-5 shadow-xs">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Action buttons above spots: Add custom spot -->
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-stone-900 flex items-center gap-1.5">
+          <i data-lucide="map-pin" class="w-4 h-4 text-amber-700"></i>
+          <span>當日自駕景點行程 (<span id="spots-count">0</span>)</span>
+        </h3>
+        <button
+          onclick="openAddSpotModal()"
+          class="px-3 py-1.5 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors flex items-center gap-1 cursor-pointer"
+        >
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>新增自訂景點</span>
+        </button>
+      </div>
+
+      <!-- Spots List -->
+      <div id="spots-list" class="space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- TAB 2: EXPENSE TRACKER -->
+    <section id="tab-expense" class="hidden">
+      <!-- Total Summary Card -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="sm:col-span-2 bg-[#F4F0E8] border border-stone-200/90 rounded-2xl p-5 shadow-2xs">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-stone-600 text-xs font-semibold">
+              <i data-lucide="wallet" class="w-4 h-4 text-stone-700"></i>
+              <span>旅費累計總支出</span>
+            </div>
+            <div class="text-[11px] text-stone-600 bg-white/80 border border-stone-300 px-2 py-0.5 rounded-md flex items-center gap-1">
+              <i data-lucide="arrow-right-left" class="w-3 h-3 text-stone-500"></i>
+              <span>匯率：1 KRW ≈ 0.024 TWD</span>
+            </div>
+          </div>
+
+          <div class="mt-3 flex flex-wrap items-baseline gap-3">
+            <span id="exp-total-krw" class="text-3xl sm:text-4xl font-extrabold text-stone-950 font-mono tabular-nums tracking-tight">
+              ₩0
+            </span>
+            <span id="exp-total-twd" class="text-base sm:text-lg font-medium text-stone-600 font-mono">
+              ≈ NT$0
+            </span>
+          </div>
+
+          <!-- Payer breakdown -->
+          <div class="mt-3.5 pt-3 border-t border-stone-200/80">
+            <div class="text-[11px] font-semibold text-stone-600 mb-1.5 flex items-center gap-1.5">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-stone-600"></i>
+              <span>付款人支出小計：</span>
+            </div>
+            <div id="payer-summary-chips" class="flex flex-wrap gap-2">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick currency converter -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-4 shadow-2xs flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 text-xs font-semibold text-stone-700 mb-2">
+              <i data-lucide="trending-up" class="w-3.5 h-3.5 text-amber-600"></i>
+              <span>即時韓幣換算台幣</span>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-1">
+                <span class="text-xs font-mono text-stone-500 w-10">KRW:</span>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  id="calc-krw"
+                  value="50000"
+                  oninput="updateQuickConverter()"
+                  class="flex-1 text-xs px-2 py-1 border border-stone-300 rounded-md font-mono"
+                  placeholder="輸入韓幣金額"
+                />
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-xs font-mono text-stone-500 w-10">TWD:</span>
+                <div id="calc-twd" class="flex-1 text-xs px-2 py-1 bg-stone-50 border border-stone-200 rounded-md font-mono font-bold text-stone-900">
+                  NT$ 1,200
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-[10px] text-stone-400 mt-2">
+            韓國購物免稅門檻為單筆 ₩15,000 以上。
+          </p>
+        </div>
+      </div>
+
+      <!-- Add Expense Form -->
+      <div class="bg-white border border-stone-200 rounded-2xl p-5 mb-6 shadow-xs">
+        <h3 class="text-sm font-bold text-stone-900 flex items-center gap-1.5 mb-3">
+          <i data-lucide="plus" class="w-4 h-4 text-stone-700"></i>
+          <span>快速記上一筆</span>
+        </h3>
+
+        <form onsubmit="handleFormAddExpense(event)" class="space-y-3.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-stone-600 mb-1">
+                項目名稱 <span class="text-rose-500">*</span>
+              </label>
+              <input
+                type="text"
+                required
+                id="form-exp-title"
+                placeholder="例如：黑豬肉晚餐、伴手禮"
+                class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-400"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-stone-600 mb-1 flex items-center justify-between">
+                <span>金額 (韓元 KRW) <span class="text-rose-500">*</span></span>
+                <span id="form-exp-approx-twd" class="text-[10px] text-stone-500 font-mono"></span>
+              </label>
+              <input
+                type="text"
+                inputmode="numeric"
+                required
+                id="form-exp-amount"
+                oninput="onAmountInputChanged(this)"
+                placeholder="例如：45000 或 45,000"
+                class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 focus:outline-none focus:ring-1 focus:ring-stone-400 font-mono"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-stone-600 mb-1">
+                分類
+              </label>
+              <select
+                id="form-exp-category"
+                class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 bg-white"
+              >
+                <option value="food">餐飲美食</option>
+                <option value="transport">交通加油</option>
+                <option value="tickets">門票體驗</option>
+                <option value="shopping">伴手購物</option>
+                <option value="stay">住宿飯店</option>
+                <option value="other">其他雜支</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold text-stone-600 mb-1 flex items-center justify-between">
+                <span class="flex items-center gap-1">
+                  <i data-lucide="user" class="w-3 h-3 text-stone-500"></i>
+                  誰支付的 / 付款人
+                </span>
+                <span class="text-[10px] text-stone-400 font-normal">點選快捷標籤</span>
+              </label>
+              <input
+                type="text"
+                id="form-exp-paidby"
+                value="公費"
+                placeholder="例如：公費、蔡小豬、兔子凌"
+                class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 bg-white"
+              />
+              <div class="flex items-center gap-1 mt-1.5 flex-wrap" id="form-payer-tags">
+                <button type="button" onclick="setFormPayer('公費')" class="text-[10px] px-2 py-0.5 rounded-md border bg-amber-100 text-amber-900 border-amber-300 font-semibold cursor-pointer">公費</button>
+                <button type="button" onclick="setFormPayer('蔡小豬')" class="text-[10px] px-2 py-0.5 rounded-md border bg-stone-50 hover:bg-stone-100 text-stone-600 border-stone-200 cursor-pointer">蔡小豬</button>
+                <button type="button" onclick="setFormPayer('兔子凌')" class="text-[10px] px-2 py-0.5 rounded-md border bg-stone-50 hover:bg-stone-100 text-stone-600 border-stone-200 cursor-pointer">兔子凌</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick amount increment buttons -->
+          <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
+            <span class="text-[11px] text-stone-500 mr-1">快捷加額：</span>
+            <button type="button" onclick="quickAddAmount(5000)" class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer">+₩5,000</button>
+            <button type="button" onclick="quickAddAmount(10000)" class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer">+₩10,000</button>
+            <button type="button" onclick="quickAddAmount(30000)" class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer">+₩30,000</button>
+            <button type="button" onclick="quickAddAmount(50000)" class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer">+₩50,000</button>
+            <button type="button" onclick="quickAddAmount(100000)" class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 cursor-pointer">+₩100,000</button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            <div class="sm:col-span-2">
+              <input
+                type="text"
+                id="form-exp-note"
+                placeholder="備註說明（例如：刷信用卡/付現金/已含退稅）"
+                class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <select
+                id="form-exp-day"
+                class="flex-1 text-xs px-2.5 py-2 rounded-xl border border-stone-300 bg-white font-mono"
+              >
+                <option value="1">DAY 1</option>
+                <option value="2">DAY 2</option>
+                <option value="3">DAY 3</option>
+                <option value="4">DAY 4</option>
+                <option value="5">DAY 5</option>
+                <option value="6">DAY 6</option>
+                <option value="7">DAY 7</option>
+                <option value="8">DAY 8</option>
+              </select>
+              <button
+                type="submit"
+                class="min-h-[38px] px-4 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-stone-800 transition-colors cursor-pointer shrink-0"
+              >
+                儲存記帳
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Expense History List -->
+      <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-stone-100 mb-3 gap-2">
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-bold text-stone-900" id="exp-history-heading">
+              消費明細記錄 (0 筆)
+            </h3>
+            <span class="text-[11px] text-stone-400 font-mono hidden sm:inline">
+              · 自動儲存於本機瀏覽器 LocalStorage
+            </span>
+          </div>
+
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" id="payer-filter-bar">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div id="expense-items-list" class="divide-y divide-stone-100">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TRAVEL ASSISTANT -->
+    <section id="tab-assistant" class="hidden">
+      <!-- Sub-tabs -->
+      <div class="flex items-center gap-1.5 p-1 bg-stone-200/70 rounded-2xl mb-6 overflow-x-auto no-scrollbar">
+        <button
+          onclick="switchAssistantSubTab('countdown')"
+          id="subtab-btn-countdown"
+          class="min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer bg-white text-stone-900 shadow-xs"
+        >
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-700"></i>
+          <span>倒數計時器</span>
+        </button>
+
+        <button
+          onclick="switchAssistantSubTab('flight')"
+          id="subtab-btn-flight"
+          class="min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer text-stone-600 hover:text-stone-900"
+        >
+          <i data-lucide="plane" class="w-3.5 h-3.5 text-sky-700"></i>
+          <span>航班資訊</span>
+        </button>
+
+        <button
+          onclick="switchAssistantSubTab('hotel')"
+          id="subtab-btn-hotel"
+          class="min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer text-stone-600 hover:text-stone-900"
+        >
+          <i data-lucide="hotel" class="w-3.5 h-3.5 text-indigo-700"></i>
+          <span>住宿清單 (4處)</span>
+        </button>
+
+        <button
+          onclick="switchAssistantSubTab('checklist')"
+          id="subtab-btn-checklist"
+          class="min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer text-stone-600 hover:text-stone-900"
+        >
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-700"></i>
+          <span>出發必備清單 & 自駕須知</span>
+        </button>
+      </div>
+
+      <!-- Subtab 1: Countdown -->
+      <div id="subtab-countdown" class="space-y-6">
+        <div class="bg-[#F4F0E8] border border-stone-200 rounded-3xl p-6 sm:p-8 text-center shadow-xs">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-200/80 text-stone-700 text-xs font-medium font-mono mb-4">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-700"></i>
+            TARGET: 2026.10.26 19:30 (KST)
+          </span>
+
+          <h2 class="text-xl sm:text-2xl font-bold text-stone-900 font-serif mb-2">
+            距離出發濟州島還有
+          </h2>
+          <p class="text-xs text-stone-600 mb-6 max-w-md mx-auto">
+            搭乘台灣虎航 IT 670 飛往韓國濟州國際機場，展開 8 天 7 夜精彩自駕之旅！
+          </p>
+
+          <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg mx-auto font-mono">
+            <div class="bg-white/90 border border-stone-200/90 rounded-2xl p-3 sm:p-4 shadow-2xs">
+              <div id="cnt-days" class="text-2xl sm:text-4xl font-extrabold text-stone-900">0</div>
+              <div class="text-[10px] sm:text-xs text-stone-500 mt-1 uppercase">Days</div>
+            </div>
+            <div class="bg-white/90 border border-stone-200/90 rounded-2xl p-3 sm:p-4 shadow-2xs">
+              <div id="cnt-hours" class="text-2xl sm:text-4xl font-extrabold text-stone-900">0</div>
+              <div class="text-[10px] sm:text-xs text-stone-500 mt-1 uppercase">Hours</div>
+            </div>
+            <div class="bg-white/90 border border-stone-200/90 rounded-2xl p-3 sm:p-4 shadow-2xs">
+              <div id="cnt-mins" class="text-2xl sm:text-4xl font-extrabold text-stone-900">0</div>
+              <div class="text-[10px] sm:text-xs text-stone-500 mt-1 uppercase">Mins</div>
+            </div>
+            <div class="bg-white/90 border border-stone-200/90 rounded-2xl p-3 sm:p-4 shadow-2xs">
+              <div id="cnt-secs" class="text-2xl sm:text-4xl font-extrabold text-amber-800">0</div>
+              <div class="text-[10px] sm:text-xs text-stone-500 mt-1 uppercase">Secs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtab 2: Flights -->
+      <div id="subtab-flight" class="hidden space-y-4">
+        <!-- Outbound Flight -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-stone-100">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-sky-100 text-sky-800">去程</span>
+              <span class="font-bold text-stone-900 text-sm">台灣虎航 IT 670</span>
+            </div>
+            <span class="text-xs font-mono text-stone-500">2026.10.26 (週一)</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between text-center">
+            <div>
+              <div class="text-lg font-bold text-stone-900 font-mono">16:00</div>
+              <div class="text-xs text-stone-500">高雄 (KHH)</div>
+            </div>
+            <div class="flex-1 px-4 flex flex-col items-center">
+              <span class="text-[10px] text-stone-400 font-mono">直飛 2h 30m</span>
+              <div class="w-full h-0.5 bg-stone-200 my-1 relative">
+                <i data-lucide="plane" class="w-3.5 h-3.5 text-stone-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i>
+              </div>
+              <span class="text-[10px] text-emerald-600">準時無時差煩惱</span>
+            </div>
+            <div>
+              <div class="text-lg font-bold text-stone-900 font-mono">19:30</div>
+              <div class="text-xs text-stone-500">濟州 (CJU)</div>
+            </div>
+          </div>
+          <div class="mt-4 bg-stone-50 rounded-xl p-3 text-xs text-stone-600 space-y-1.5">
+            <div class="font-semibold text-stone-800">抵達與出關須知：</div>
+            <p>1. 下機後通過入境檢查並領取托運行李。</p>
+            <p>2. 機場 1 樓出 5 號出口，搭乘排班計程車前往濟州紅樹林酒店 (Mangrove Jeju City)（車程約 10-15 分鐘，車資約 ₩7,000~10,000）。</p>
+          </div>
+        </div>
+
+        <!-- Inbound Flight -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-stone-100">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800">回程</span>
+              <span class="font-bold text-stone-900 text-sm">台灣虎航 IT 671</span>
+            </div>
+            <span class="text-xs font-mono text-stone-500">2026.11.02 (週一)</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between text-center">
+            <div>
+              <div class="text-lg font-bold text-stone-900 font-mono">20:20</div>
+              <div class="text-xs text-stone-500">濟州 (CJU)</div>
+            </div>
+            <div class="flex-1 px-4 flex flex-col items-center">
+              <span class="text-[10px] text-stone-400 font-mono">直飛 2h 40m</span>
+              <div class="w-full h-0.5 bg-stone-200 my-1 relative">
+                <i data-lucide="plane" class="w-3.5 h-3.5 text-stone-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-180"></i>
+              </div>
+              <span class="text-[10px] text-stone-500">抵達高雄 22:00</span>
+            </div>
+            <div>
+              <div class="text-lg font-bold text-stone-900 font-mono">22:00</div>
+              <div class="text-xs text-stone-500">高雄 (KHH)</div>
+            </div>
+          </div>
+          <div class="mt-4 bg-stone-50 rounded-xl p-3 text-xs text-stone-600 space-y-1.5">
+            <div class="font-semibold text-stone-800">回程離境提醒：</div>
+            <p>1. 回程班機抵達高雄時間為 <strong>22:00</strong>。</p>
+            <p>2. 當天建議於 17:00 前往樂天租車營業處還車，搭接駁車於 17:30 抵達濟州機場 3 樓報到及辦理退稅手續。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtab 3: Hotels (4 verified hotels) -->
+      <div id="subtab-hotel" class="hidden space-y-4">
+        <!-- Hotel 1 -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-xs font-bold text-amber-800 mb-1">D1 (10/26 入住 - 10/27 退房 · 1晚)</div>
+              <h4 class="text-base font-bold text-stone-900">濟州紅樹林酒店 (Mangrove Jeju City)</h4>
+              <p class="text-xs text-stone-500 font-mono mt-0.5">맹그로브 제주시티</p>
+            </div>
+            <span class="text-[11px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">濟州市區</span>
+          </div>
+          <div class="mt-3 text-xs text-stone-600 space-y-1 bg-stone-50 p-3 rounded-xl">
+            <p><strong>時間：</strong>15:00 入住，11:00 退房</p>
+            <p class="flex items-center gap-1.5">
+              <strong>韓文地址：</strong>
+              <span class="font-mono select-all">제주도 제주시 탑동로 5</span>
+              <button onclick="copyToClipboard('제주도 제주시 탑동로 5')" class="text-stone-500 hover:text-stone-900 underline text-[11px]">複製</button>
+            </p>
+            <p><strong>停車資訊：</strong>飯店附設住客停車場，晚間抵達可先停靠門口卸行李。</p>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <a href="https://naver.me/5N15pPHt" target="_blank" class="text-xs px-3 py-1.5 bg-[#03C75A] text-white rounded-lg flex items-center gap-1 font-medium">
+              <span>Naver 地圖導航</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hotel 2 -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-xs font-bold text-amber-800 mb-1">D2-D5 (10/27 入住 - 10/30 退房 · 連住3晚)</div>
+              <h4 class="text-base font-bold text-stone-900">西歸浦大酒店 Hotel the Grang Seogwipo</h4>
+              <p class="text-xs text-stone-500 font-mono mt-0.5">호텔 더 그랑 서귀포</p>
+            </div>
+            <span class="text-[11px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">西歸浦市區</span>
+          </div>
+          <div class="mt-3 text-xs text-stone-600 space-y-1 bg-stone-50 p-3 rounded-xl">
+            <p><strong>時間：</strong>15:00 入住，11:00 退房</p>
+            <p class="flex items-center gap-1.5">
+              <strong>韓文地址：</strong>
+              <span class="font-mono select-all">제주특별자치도 서귀포시 중정로 16</span>
+              <button onclick="copyToClipboard('제주특별자치도 서귀포시 중정로 16')" class="text-stone-500 hover:text-stone-900 underline text-[11px]">複製</button>
+            </p>
+            <p><strong>停車資訊：</strong>飯店提供免費住客停車場，鄰近每日偶來市場。</p>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <a href="https://naver.me/xbA5dA2R" target="_blank" class="text-xs px-3 py-1.5 bg-[#03C75A] text-white rounded-lg flex items-center gap-1 font-medium">
+              <span>Naver 地圖導航</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hotel 3 -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-xs font-bold text-amber-800 mb-1">D5 (10/30 入住 - 10/31 退房 · 1晚)</div>
+              <h4 class="text-base font-bold text-stone-900">濟州城山貝斯特酒店 The Best Jeju Seongsan</h4>
+              <p class="text-xs text-stone-500 font-mono mt-0.5">더 베스트 제주 성산</p>
+            </div>
+            <span class="text-[11px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">城山東部</span>
+          </div>
+          <div class="mt-3 text-xs text-stone-600 space-y-1 bg-stone-50 p-3 rounded-xl">
+            <p><strong>時間：</strong>15:00 入住，11:00 退房</p>
+            <p class="flex items-center gap-1.5">
+              <strong>韓文地址：</strong>
+              <span class="font-mono select-all">제주 서귀포시 성산읍 동류암로 26</span>
+              <button onclick="copyToClipboard('제주 서귀포시 성산읍 동류암로 26')" class="text-stone-500 hover:text-stone-900 underline text-[11px]">複製</button>
+            </p>
+            <p><strong>停車資訊：</strong>飯店設有大型專用停車場，進出十分便利，步行可達城山日出峰步道入口。</p>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <a href="https://naver.me/GpCT7wya" target="_blank" class="text-xs px-3 py-1.5 bg-[#03C75A] text-white rounded-lg flex items-center gap-1 font-medium">
+              <span>Naver 地圖導航</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hotel 4 -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-xs font-bold text-amber-800 mb-1">D6-D7 (10/31 入住 - 11/02 退房 · 連住2晚)</div>
+              <h4 class="text-base font-bold text-stone-900">濟州島惠斯勒飯店 Hotel Whistlelark Jeju (又稱「口哨雲雀酒店濟州」)</h4>
+              <p class="text-xs text-stone-500 font-mono mt-0.5">호텔 휘슬락 제주</p>
+            </div>
+            <span class="text-[11px] px-2 py-0.5 bg-stone-100 text-stone-600 rounded">濟州市塔洞海邊</span>
+          </div>
+          <div class="mt-3 text-xs text-stone-600 space-y-1 bg-stone-50 p-3 rounded-xl">
+            <p><strong>時間：</strong>15:00 入住，11:00 退房</p>
+            <p class="flex items-center gap-1.5">
+              <strong>韓文地址：</strong>
+              <span class="font-mono select-all">제주 제주시 서부두2길 26</span>
+              <button onclick="copyToClipboard('제주 제주시 서부두2길 26')" class="text-stone-500 hover:text-stone-900 underline text-[11px]">複製</button>
+            </p>
+            <p><strong>停車資訊：</strong>飯店提供室內平面與機械停車位，下樓即為塔洞海邊防波堤與生魚片一條街。</p>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <a href="https://naver.me/IGJyTQ0O" target="_blank" class="text-xs px-3 py-1.5 bg-[#03C75A] text-white rounded-lg flex items-center gap-1 font-medium">
+              <span>Naver 地圖導航</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtab 4: Checklist & Driving Tips -->
+      <div id="subtab-checklist" class="hidden space-y-6">
+        <!-- 5 Essential Items Checklist -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-stone-100 mb-3">
+            <h3 class="text-sm font-bold text-stone-900 flex items-center gap-1.5">
+              <i data-lucide="check-square" class="w-4 h-4 text-emerald-700"></i>
+              <span>出發前 5 大必備隨身清單</span>
+            </h3>
+            <span id="checklist-progress" class="text-xs font-mono font-bold text-emerald-700">0/5 完成</span>
+          </div>
+
+          <div class="space-y-3" id="checklist-items">
+            <!-- Item 1 -->
+            <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-50 transition-colors cursor-pointer border border-stone-100">
+              <input type="checkbox" id="chk-1" onchange="onChecklistChange()" class="w-4 h-4 mt-0.5 accent-stone-900 rounded cursor-pointer" />
+              <div>
+                <div class="text-xs font-bold text-stone-900">01. 國際駕照本 + 台灣駕照正本 (兩者皆需攜帶正本)</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">在韓國樂天租車取車時，櫃檯會嚴格查驗兩張實體證件，缺一不可！</div>
+              </div>
+            </label>
+
+            <!-- Item 2 -->
+            <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-50 transition-colors cursor-pointer border border-stone-100">
+              <input type="checkbox" id="chk-2" onchange="onChecklistChange()" class="w-4 h-4 mt-0.5 accent-stone-900 rounded cursor-pointer" />
+              <div>
+                <div class="text-xs font-bold text-stone-900">02. 護照 (效期6個月以上) + 入境卡</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">持台灣護照免簽入境，機上填寫黃色入境卡即可快速通關。</div>
+              </div>
+            </label>
+
+            <!-- Item 3 -->
+            <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-50 transition-colors cursor-pointer border border-stone-100">
+              <input type="checkbox" id="chk-3" onchange="onChecklistChange()" class="w-4 h-4 mt-0.5 accent-stone-900 rounded cursor-pointer" />
+              <div>
+                <div class="text-xs font-bold text-stone-900">03. 信用卡 (海外高回饋/雙幣卡) + WOWPASS / T-Money 交通卡</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">韓國多數店家支援無現金刷卡，偶來市場小吃備適量韓元現金。</div>
+              </div>
+            </label>
+
+            <!-- Item 4 -->
+            <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-50 transition-colors cursor-pointer border border-stone-100">
+              <input type="checkbox" id="chk-4" onchange="onChecklistChange()" class="w-4 h-4 mt-0.5 accent-stone-900 rounded cursor-pointer" />
+              <div>
+                <div class="text-xs font-bold text-stone-900">04. 韓國網卡 / eSIM (具備通話門號更佳)</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">即時查詢 Naver Map 導航與部分熱門餐廳現場候位排隊登記。</div>
+              </div>
+            </label>
+
+            <!-- Item 5 -->
+            <label class="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-50 transition-colors cursor-pointer border border-stone-100">
+              <input type="checkbox" id="chk-5" onchange="onChecklistChange()" class="w-4 h-4 mt-0.5 accent-stone-900 rounded cursor-pointer" />
+              <div>
+                <div class="text-xs font-bold text-stone-900">05. 韓國轉接頭 (雙圓孔 220V)</div>
+                <div class="text-[11px] text-stone-500 mt-0.5">韓國插座為德標雙圓孔（直徑 4.8mm），手機、相機充電必備！</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Driving Safety Guidelines -->
+        <div class="bg-white border border-stone-200 rounded-2xl p-5 shadow-xs">
+          <h3 class="text-sm font-bold text-stone-900 flex items-center gap-1.5 pb-3 border-b border-stone-100 mb-3">
+            <i data-lucide="car" class="w-4 h-4 text-amber-700"></i>
+            <span>濟州島自駕重要交規精華</span>
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-stone-600">
+            <div class="bg-amber-50/70 border border-amber-200/80 p-3 rounded-xl">
+              <div class="font-bold text-amber-900 mb-1">🛑 紅燈右轉新規定</div>
+              <p>遇前方紅燈右轉時，<strong>必須完全停止踩死煞車 3 秒</strong>，確認斑馬線無行人後方可緩慢右轉通行！</p>
+            </div>
+            <div class="bg-rose-50/70 border border-rose-200/80 p-3 rounded-xl">
+              <div class="font-bold text-rose-900 mb-1">⚠️ 兒童保護區限速 30km/h</div>
+              <p>黃色路面標線之學校周邊區域，全程速限 30km/h，違規超速罰款加倍！</p>
+            </div>
+            <div class="bg-stone-50 border border-stone-200 p-3 rounded-xl">
+              <div class="font-bold text-stone-900 mb-1">📷 測速照相極為密集</div>
+              <p>Naver Map 導航具備強大測速預警聲響，請注意區間測速與定點相機。</p>
+            </div>
+            <div class="bg-stone-50 border border-stone-200 p-3 rounded-xl">
+              <div class="font-bold text-stone-900 mb-1">⛽ 樂天租車加油須知</div>
+              <p>KONA 4WD 為汽油車 (Gasoline / 휘발유)，黃色油槍，還車前請至營業處旁加油站加滿。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/90 py-2 px-4 shadow-lg">
+    <div class="max-w-md mx-auto grid grid-cols-3 gap-2">
+      <button
+        onclick="switchMainTab('itinerary')"
+        id="nav-btn-itinerary"
+        class="flex flex-col items-center justify-center py-1.5 rounded-xl transition-colors cursor-pointer text-stone-950 font-bold bg-stone-100"
+      >
+        <i data-lucide="calendar" class="w-5 h-5"></i>
+        <span class="text-[11px] mt-1">行程規劃</span>
+      </button>
+
+      <button
+        onclick="switchMainTab('expense')"
+        id="nav-btn-expense"
+        class="flex flex-col items-center justify-center py-1.5 rounded-xl transition-colors cursor-pointer text-stone-500 hover:text-stone-900"
+      >
+        <i data-lucide="wallet" class="w-5 h-5"></i>
+        <span class="text-[11px] mt-1">旅費記帳</span>
+      </button>
+
+      <button
+        onclick="switchMainTab('assistant')"
+        id="nav-btn-assistant"
+        class="flex flex-col items-center justify-center py-1.5 rounded-xl transition-colors cursor-pointer text-stone-500 hover:text-stone-900"
+      >
+        <i data-lucide="compass" class="w-5 h-5"></i>
+        <span class="text-[11px] mt-1">隨身指南</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= ADD SPOT MODAL ================= -->
+  <div id="add-spot-modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white border border-stone-200 rounded-3xl max-w-lg w-full p-6 shadow-xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-stone-100">
+        <h3 class="text-base font-bold text-stone-900">
+          新增自訂景點至 DAY <span id="modal-day-num">1</span>
+        </h3>
+        <button onclick="closeAddSpotModal()" class="text-stone-400 hover:text-stone-600 cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleFormAddCustomSpot(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">景點中文名稱 *</label>
+          <input type="text" id="spot-form-title" required placeholder="例如：涯月日落咖啡館" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">韓文名稱 / 導航搜尋關鍵字</label>
+          <input type="text" id="spot-form-korean" placeholder="例如：애월 선셋 카페" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-stone-700 mb-1">預估時間</label>
+            <input type="text" id="spot-form-time" placeholder="例如：14:00 - 15:30" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 font-mono" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-stone-700 mb-1">分類類型</label>
+            <select id="spot-form-category" class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 bg-white">
+              <option value="spot">景點賞景</option>
+              <option value="food">美味餐飲</option>
+              <option value="cafe">海景咖啡</option>
+              <option value="shopping">伴手購物</option>
+              <option value="nature">自然登山</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">行程說明與筆記</label>
+          <textarea id="spot-form-about" rows="2" placeholder="注意事項、推薦餐點或拍照點..." class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1">自訂 Naver 地圖網址 (選填)</label>
+          <input type="url" id="spot-form-url" placeholder="https://naver.me/..." class="w-full text-xs px-3 py-2 rounded-xl border border-stone-300 font-mono text-[11px]" />
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeAddSpotModal()" class="px-4 py-2 text-xs text-stone-600 hover:text-stone-900 bg-stone-100 rounded-xl cursor-pointer">取消</button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-stone-900 hover:bg-stone-800 rounded-xl cursor-pointer">加入當日行程</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-stone-900 text-white text-xs px-4 py-2 rounded-full shadow-lg transition-all opacity-0 pointer-events-none z-50 flex items-center gap-2">
+    <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-text">已完成</span>
+  </div>
+
+  <!-- ================= INLINE SCRIPT & COMPLETE DATA ================= -->
+  <script>
+    // --- 1. DEFAULT DATA ---
+    const DEFAULT_DAYS = [
+      {
+        dayNumber: 1,
+        date: '10/26',
+        dayOfWeek: '一',
+        fullDateStr: '2026.10.26 (週一)',
+        title: '抵達濟州島 · 入住市區',
+        area: '濟州市北區',
+        summary: '搭乘虎航 IT 670 抵達濟州國際機場，搭乘計程車前往「濟州紅樹林酒店 (Mangrove Jeju City)」入住，超商採買養精蓄銳。',
+        hotel: {
+          name: '濟州紅樹林酒店 (Mangrove Jeju City)',
+          koreanName: '맹그로브 제주시티',
+          address: '제주도 제주시 탑동로 5',
+          naverMapUrl: 'https://naver.me/5N15pPHt',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd1-1',
+            time: '19:30 - 20:30',
+            title: '濟州國際機場 (入境)',
+            koreanName: '제주국제공항 입국 (IT 670)',
+            category: 'flight',
+            about: '抵達濟州島！ Welcome Jeju～ 下機通過檢疫查驗與提領行李。',
+            naverMapUrl: 'https://naver.me/52TM1l2n',
+            tip: '出發前72小時內上網填寫入境卡，通關更快速。'
+          },
+          {
+            id: 'd1-2',
+            time: '20:30 - 20:50',
+            title: '濟州國際機場 → 濟州紅樹林酒店',
+            koreanName: '제주국제공항 → 맹그로브 제주시티',
+            category: 'hotel',
+            about: '搭計程車前往市區飯店入住（濟州紅樹林酒店 Mangrove Jeju City，地址：제주도 제주시 탑동로 5）。周邊超商採買宵夜。',
+            naverMapUrl: 'https://naver.me/5N15pPHt',
+            tip: '機場 5 號出口過馬路即為排班計程車站點，車程約 10-15 分鐘（車資約 ₩7,000~10,000）。'
+          }
+        ]
+      },
+      {
+        dayNumber: 2,
+        date: '10/27',
+        dayOfWeek: '二',
+        fullDateStr: '2026.10.27 (週二)',
+        title: '西海岸自駕 · 文創與黑豬肉',
+        area: '西海岸 · 涯月 · 翰林 · 西歸浦',
+        summary: '樂天取車開啟自駕之旅！漫步紅白馬燈塔、品嚐現烤鰻魚、走訪人氣UMU布丁與果凍海，南下西歸浦入住大酒店。',
+        hotel: {
+          name: '西歸浦大酒店 Hotel the Grang Seogwipo',
+          koreanName: '호텔 더 그랑 서귀포',
+          address: '제주특별자치도 서귀포시 중정로 16',
+          naverMapUrl: 'https://naver.me/xbA5dA2R',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd2-1',
+            time: '08:30 - 10:00',
+            title: '樂天租車 (LOTTE rent a car)',
+            koreanName: '롯데렌터카 제주오토하우스',
+            category: 'transport',
+            about: '辦理取車手續，確認車輛現代 KONA 4WD (汽油 G)。檢查車況刮痕並錄影存證。',
+            naverMapUrl: 'https://naver.me/5oE5y0S5',
+            tip: '務必出示國際駕照本 + 台灣駕照正本。'
+          },
+          {
+            id: 'd2-2',
+            time: '10:15 - 11:30',
+            title: '梨湖木筏海邊 (紅白馬燈塔)',
+            koreanName: '이호테우해수욕장',
+            category: 'spot',
+            about: '必拍超可愛巨大紅白特洛伊木馬防波堤燈塔，順步至周邊 BIG SAVE 藥局採買。',
+            naverMapUrl: 'https://naver.me/FxFtVyc6',
+            tip: '木馬防波堤旁有專用免費停車場，海風強勁注意隨身帽子。'
+          },
+          {
+            id: 'd2-3',
+            time: '12:00 - 13:30',
+            title: '午餐：川鰻魚 (천장어)',
+            koreanName: '천장어 (풍천장어)',
+            category: 'food',
+            about: '超人氣炭火現烤淡水白鰻魚，肉質厚實肥嫩，外脆內軟無土味。',
+            naverMapUrl: 'https://naver.me/xZVp72OI',
+            tip: '原味現烤白鰻搭配生薑絲、紫蘇葉與特調甜鹹醬汁。附設專屬停車位。'
+          },
+          {
+            id: 'd2-4',
+            time: '14:00 - 14:45',
+            title: 'mumu jeju 文創選物店',
+            koreanName: '무무제주',
+            category: 'shopping',
+            about: '濟州在地溫暖插畫文創小店，漢拏山小熊貼紙、刺繡零錢包。',
+            naverMapUrl: 'https://naver.me/5z52v8Ic',
+            tip: '鄉間巷道寬敞處停車，注意不阻礙當地居民會車。'
+          },
+          {
+            id: 'd2-5',
+            time: '15:00 - 15:45',
+            title: 'UMU 布丁 & Garcon jeju',
+            koreanName: '우무 (UMU) & 갸르송 제주',
+            category: 'shopping',
+            about: '海女石花菜純天然布丁（卡士達、抹茶、巧克力）及布丁肥皂。',
+            naverMapUrl: 'https://naver.me/FK5vaTT8',
+            tip: '布丁不含化學凝固劑，購買後請於 10-20 分鐘內享用。'
+          },
+          {
+            id: 'd2-6',
+            time: '16:00 - 17:30',
+            title: '涯月海岸路 & 咖啡時光',
+            koreanName: '애월 한담해안산책로',
+            category: 'cafe',
+            about: '漫步涯月漢潭海邊散步路，眺望絕美果凍海與日落晚霞。',
+            naverMapUrl: 'https://naver.me/501ZvxM4',
+            tip: '秋季日落約 17:35，下午光線最適合拍攝海景大片。'
+          },
+          {
+            id: 'd2-7',
+            time: '19:00 - 20:30',
+            title: '晚餐：西歸浦炭火黑豬肉 & 市場',
+            koreanName: '서귀포 흑돼지 & 매일올레시장',
+            category: 'food',
+            about: '入住西歸浦大酒店後，步行前往每日偶來市場品嚐黑豬肉與橘子麻糬。',
+            naverMapUrl: 'https://naver.me/xbA5dA2R',
+            tip: '車輛停放飯店免費停車場，步行至商圈免擔心酒駕。'
+          }
+        ]
+      },
+      {
+        dayNumber: 3,
+        date: '10/28',
+        dayOfWeek: '三',
+        fullDateStr: '2026.10.28 (週三)',
+        title: '最美公路1100 · 烤白帶魚與藝文',
+        area: '漢拏山 · 中文觀光區 · 安德',
+        summary: '沿濟州最美1100景觀公路登高賞秋芒秋楓，午餐享用超霸氣整條無骨白帶魚，探訪本態博物館與粉紅亂子草。',
+        hotel: {
+          name: '西歸浦大酒店 Hotel the Grang Seogwipo',
+          koreanName: '호텔 더 그랑 서귀포 (連住第 2 晚)',
+          address: '제주특별자치도 서귀포시 중정로 16',
+          naverMapUrl: 'https://naver.me/xbA5dA2R',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd3-1',
+            time: '09:00 - 10:45',
+            title: '1100高地 休憩所 & 濕地步道',
+            koreanName: '1100고지 휴게소',
+            category: 'nature',
+            about: '濟州最美高山公路！平緩木棧生態步道，漫步欣賞漢拏山秋楓秋芒。',
+            naverMapUrl: 'https://naver.me/FV7YUbjQ',
+            tip: '高地氣溫比平地低 5-8 度，請備防風保暖外套。步道走一圈約 20 分鐘。'
+          },
+          {
+            id: 'd3-2',
+            time: '11:30 - 13:00',
+            title: '午餐：春心之家 本店 (烤無骨白帶魚)',
+            koreanName: '춘심이네 본점',
+            category: 'food',
+            about: '濟州島標誌性超巨大整尾烤無骨銀白帶魚，店員桌邊專業挑刺除骨！',
+            naverMapUrl: 'https://naver.me/5BcjS2c2',
+            tip: '排隊名店建議中午準時抵達，附設寬敞專用停車場。'
+          },
+          {
+            id: 'd3-3',
+            time: '13:00 - 14:00',
+            title: 'Terarosa Coffee 中文店',
+            koreanName: '테라로사 중문점',
+            category: 'cafe',
+            about: '韓國殿堂級精品手沖咖啡！紅磚綠意空間，品嚐手沖單品與檸檬磅蛋糕。',
+            naverMapUrl: 'https://naver.me/Fk73nWOB',
+            tip: '離春心之家開車約 5-8 分鐘，附設專用免費停車場。'
+          },
+          {
+            id: 'd3-4',
+            time: '14:15 - 15:45',
+            title: '本態博物館 (Bonte Museum)',
+            koreanName: '본태박물관',
+            category: 'spot',
+            about: '安藤忠雄操刀清水模建築，草間彌生《無限鏡屋》與韓國傳統工藝，BTS RM朝聖地。',
+            naverMapUrl: 'https://naver.me/5CW7vFCY',
+            tip: '現場票價約 ₩35,000 韓元，可線上比價購票。'
+          },
+          {
+            id: 'd3-5',
+            time: '16:00 - 17:30',
+            title: '山茶花之丘 (Camellia Hill)',
+            koreanName: '카멜리아힐',
+            category: 'nature',
+            about: '秋季限定夢幻粉紅亂子草 (Pink Muhly) 花海與秋日波斯菊。',
+            naverMapUrl: 'https://naver.me/GFB10Aam',
+            tip: '門票約 12,000 韓元，下午柔和光線最適合拍攝唯美人像。'
+          }
+        ]
+      },
+      {
+        dayNumber: 4,
+        date: '10/29',
+        dayOfWeek: '四',
+        fullDateStr: '2026.10.29 (週四)',
+        title: '南部海蝕絕景 · 瀑布入海',
+        area: '西歸浦南部 · 柱狀節理 · 正房瀑布',
+        summary: '欣賞直落入海的正房瀑布、大自然鬼斧神工柱狀節理帶，午後漫步李仲燮藝術街。',
+        hotel: {
+          name: '西歸浦大酒店 Hotel the Grang Seogwipo',
+          koreanName: '호텔 더 그랑 서귀포 (連住第 3 晚)',
+          address: '제주특별자치도 서귀포시 중정로 16',
+          naverMapUrl: 'https://naver.me/xbA5dA2R',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd4-1',
+            time: '09:30 - 11:00',
+            title: '大浦海岸柱狀節理帶',
+            koreanName: '대포주상절리',
+            category: 'nature',
+            about: '火山熔岩遇冰冷海水凝固冷卻形成的壯麗六角形玄武岩柱，浪花拍岸極具震撼力。',
+            naverMapUrl: 'https://naver.me/5G5kQ12z',
+            tip: '木棧觀景步道完善平緩，門票約 ₩2,000 韓元。'
+          },
+          {
+            id: 'd4-2',
+            time: '11:30 - 13:00',
+            title: '正房瀑布 (直落入海)',
+            koreanName: '정방폭포',
+            category: 'spot',
+            about: '亞洲唯一直接落入太平洋大海的海岸瀑布！瀑布底黑礁石上海女現切新鮮海膽鮑魚。',
+            naverMapUrl: 'https://naver.me/F1I1v77y',
+            tip: '步道階梯略多，礁石濕滑請著防滑好走平底鞋。'
+          },
+          {
+            id: 'd4-3',
+            time: '13:30 - 15:30',
+            title: '李仲燮文化街 & 西歸浦每日偶來市場',
+            koreanName: '이중섭거리 & 서귀포 매일올레시장',
+            category: 'shopping',
+            about: '充滿藝術咖啡氛圍的步行坡道，連接市場品嚐黑豬肉可樂餅與濟州柑橘冰沙。',
+            naverMapUrl: 'https://naver.me/xbA5dA2R',
+            tip: '西歸浦悠閒午後散步最佳路線。'
+          }
+        ]
+      },
+      {
+        dayNumber: 5,
+        date: '10/30',
+        dayOfWeek: '五',
+        fullDateStr: '2026.10.30 (週五)',
+        title: '東部世界遺產 · 涉地可支與城山',
+        area: '東部 · 城山日出峰 · 涉地可支',
+        summary: '前往東部海岸，登上世界自然遺產城山日出峰俯瞰火山口，探訪涉地可支浪漫海角教堂。',
+        hotel: {
+          name: '濟州城山貝斯特酒店 The Best Jeju Seongsan',
+          koreanName: '더 베스트 제주 성산',
+          address: '제주 서귀포시 성산읍 동류암로 26',
+          naverMapUrl: 'https://naver.me/GpCT7wya',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd5-1',
+            time: '10:00 - 12:30',
+            title: '涉地可支 (Seopjikoji)',
+            koreanName: '섭지코지',
+            category: 'nature',
+            about: '韓劇取景經典海角！紅白糖果屋教堂、安藤忠雄玻璃屋 (Glass House) 與壯闊海崖。',
+            naverMapUrl: 'https://naver.me/5qR56kR2',
+            tip: '秋季海邊風勢強，海天一色視野極佳，免費參觀。'
+          },
+          {
+            id: 'd5-2',
+            time: '13:00 - 14:30',
+            title: '午餐：城山海鮮刀削麵 / 生魚片',
+            koreanName: '성산 해물칼국수',
+            category: 'food',
+            about: '滿滿活鮑魚、章魚與螃蟹的澎湃海鮮大鍋麵，湯頭鮮甜無比。',
+            naverMapUrl: 'https://naver.me/GpCT7wya',
+            tip: '品嚐東部最新鮮的現撈時令海產。'
+          },
+          {
+            id: 'd5-3',
+            time: '15:00 - 17:30',
+            title: '城山日出峰 (Seongsan Ilchulbong)',
+            koreanName: '성산일출봉',
+            category: 'spot',
+            about: '世界自然遺產！海底火山爆發形成的巨大火山臼，沿石階登頂鳥瞰浩瀚海洋與濟州島全景。',
+            naverMapUrl: 'https://naver.me/x0aE9r6a',
+            tip: '峰頂付費步道約 25-30 分鐘登頂；左側西北步道免費欣賞海崖日落。'
+          }
+        ]
+      },
+      {
+        dayNumber: 6,
+        date: '10/31',
+        dayOfWeek: '六',
+        fullDateStr: '2026.10.31 (週六)',
+        title: '水族館體驗 · 北上入住塔洞海邊',
+        area: '東部 Aqua Planet · 濟州市塔洞',
+        summary: '造訪全亞洲最大水族館看海女潛水秀，午後北返濟州市區入住濟州島惠斯勒飯店。',
+        hotel: {
+          name: '濟州島惠斯勒飯店 Hotel Whistlelark Jeju',
+          koreanName: '호텔 휘슬락 제주 (又稱「口哨雲雀酒店濟州」)',
+          address: '제주 제주시 서부두2길 26',
+          naverMapUrl: 'https://naver.me/IGJyTQ0O',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd6-1',
+            time: '09:30 - 12:30',
+            title: 'Aqua Planet 濟州海洋水族館',
+            koreanName: '아쿠아플라넷 제주',
+            category: 'spot',
+            about: '全亞洲最大水族館之一！巨大主水族箱超震撼，必看濟州傳統海女潛水捕撈實演秀。',
+            naverMapUrl: 'https://naver.me/5dOxG5l5',
+            tip: '海女表演場次通常為 10:40、12:50，請留意入園時間。'
+          },
+          {
+            id: 'd6-2',
+            time: '13:00 - 14:30',
+            title: '午餐：細花海邊景觀餐飲',
+            koreanName: '세화해변 카페거리',
+            category: 'cafe',
+            about: '沿著東海岸公路漫遊，欣賞純白細沙果凍海，彩色桌椅拍照打卡。',
+            naverMapUrl: 'https://naver.me/5vI89k6t',
+            tip: '海邊文青小店林立，品嚐手作甜點與紅蘿蔔蛋糕。'
+          },
+          {
+            id: 'd6-3',
+            time: '16:00 - 17:30',
+            title: '入住：濟州島惠斯勒飯店',
+            koreanName: '호텔 휘슬락 제주 입실',
+            category: 'hotel',
+            about: '入住塔洞海邊飯店，步行 5 分鐘即達西碼頭生魚片一條街、東門傳統市場。',
+            naverMapUrl: 'https://naver.me/IGJyTQ0O',
+            tip: '飯店附設停車場，周邊有 Emart 大型量販店可採購伴手禮。'
+          }
+        ]
+      },
+      {
+        dayNumber: 7,
+        date: '11/01',
+        dayOfWeek: '日',
+        fullDateStr: '2026.11.01 (週日)',
+        title: '東北海岸浪漫果凍海 · 綠茶之森',
+        area: '咸德 · 月汀里 · 思連伊林道',
+        summary: '踏訪咸德犀牛果凍海、月汀里風車海岸，漫步思連伊林道扁柏樹芬多精，市區最後購物。',
+        hotel: {
+          name: '濟州島惠斯勒飯店 Hotel Whistlelark Jeju',
+          koreanName: '호텔 휘슬락 제주 (連住第 2 晚)',
+          address: '제주 제주시 서부두2길 26',
+          naverMapUrl: 'https://naver.me/IGJyTQ0O',
+          checkIn: '15:00 入住',
+          checkOut: '11:00 退房'
+        },
+        items: [
+          {
+            id: 'd7-1',
+            time: '09:30 - 11:30',
+            title: '咸德犀牛海灘 (Hamdeok Beach)',
+            koreanName: '함덕해수욕장',
+            category: 'nature',
+            about: '被譽為濟州最美果凍海！水質清澈碧綠如馬爾地夫，走上海邊黑石橋吹海風。',
+            naverMapUrl: 'https://naver.me/5lC9J5n2',
+            tip: 'Café Delmoondo (델문도) 坐擁 270 度海景，招牌牛角麵包極佳。'
+          },
+          {
+            id: 'd7-2',
+            time: '12:30 - 14:00',
+            title: '思連伊林道 (Saryeoni Forest)',
+            koreanName: '사려니숲길',
+            category: 'nature',
+            about: '濟州島最夢幻的高聳扁柏樹林道，吸飽清新芬多精與秋季森林氣息。',
+            naverMapUrl: 'https://naver.me/xYTk456b',
+            tip: '木棧無障礙步道好走舒適，適合午後散步拍照。'
+          },
+          {
+            id: 'd7-3',
+            time: '15:30 - 18:30',
+            title: '東門傳統市場 & 七星路商圈購物',
+            koreanName: '동문재래시장 & 칠성로 쇼핑거리',
+            category: 'shopping',
+            about: '採購最後伴手禮：濟州柑橘巧克力、漢拏峰橘子乾、常溫韓式年糕、Olive Young 藥妝。',
+            naverMapUrl: 'https://naver.me/5K7qO9w8',
+            tip: '夜間有熱鬧東門夜市攤販，各式韓式烤海鮮、黑豬肉肉串。'
+          }
+        ]
+      },
+      {
+        dayNumber: 8,
+        date: '11/02',
+        dayOfWeek: '一',
+        fullDateStr: '2026.11.02 (週一)',
+        title: '市區巡禮 · 還車與滿載而歸',
+        area: '龍頭岩 · 樂天還車 · 機場返台',
+        summary: '退房後探訪龍頭岩、樂天免稅店最後衝刺，傍晚前往樂天租車還車，搭機平安返回高雄 (22:00 抵達)。',
+        hotel: {
+          name: '賦歸高雄 (溫暖的家)',
+          koreanName: '귀국 (집으로)',
+          address: '高雄國際機場 (KHH)',
+          checkIn: '22:00 抵達高雄'
+        },
+        items: [
+          {
+            id: 'd8-1',
+            time: '11:00 - 12:30',
+            title: '退房 & 龍頭岩與龍淵雲橋',
+            koreanName: '용두암 & 용연구름다리',
+            category: 'spot',
+            about: '濟州代表性地標！兩百萬年前熔岩冷卻形成的龍頭狀玄武岩，順訪典雅木吊橋。',
+            naverMapUrl: 'https://naver.me/56IR5l5u',
+            tip: '鄰近機場，可近距離抬頭捕捉飛機降落的震撼畫面。'
+          },
+          {
+            id: 'd8-2',
+            time: '13:00 - 15:30',
+            title: '蓮洞商圈 & 樂天免稅店濟州店',
+            koreanName: '롯데면세점 제주점 & 연동',
+            category: 'shopping',
+            about: '市區最後採買！國際專櫃美妝、韓系精品，可使用現場免稅優惠。',
+            naverMapUrl: 'https://naver.me/5qR56kR2',
+            tip: '出示護照與回程電子機票購票，部分免稅商品於機場候機室提貨。'
+          },
+          {
+            id: 'd8-3',
+            time: '16:30 - 17:30',
+            title: '樂天租車還車 & 接駁至機場',
+            koreanName: '롯데렌터카 반납 (오토하우스)',
+            category: 'transport',
+            about: '還車前至營業處旁加油站加滿汽油，工作人員迅速驗車後搭乘免費穿梭巴士至機場。',
+            naverMapUrl: 'https://naver.me/5oE5y0S5',
+            tip: '請務必帶走車內所有個人隨身物品與手機充電線！'
+          },
+          {
+            id: 'd8-4',
+            time: '17:30 - 22:00',
+            title: '濟州機場報到退稅 → 回程班機抵達高雄',
+            koreanName: '제주공항 출국 (IT 671) → 가오슝 도착',
+            category: 'flight',
+            about: '辦理退稅機台掃描、報到托運行李，搭乘 20:20 台灣虎航 IT 671，預計於 22:00 抵達高雄小港機場！',
+            naverMapUrl: 'https://naver.me/52TM1l2n',
+            tip: '回程班機抵達高雄的時間為 22:00，圓滿結束 8 天 7 夜濟州自駕秋旅！'
+          }
+        ]
+      }
+    ];
+
+    const DEFAULT_EXPENSES = [
+      {
+        id: 'exp-1',
+        title: '樂天租車全險費用 (KONA 4WD)',
+        amountKrw: 320000,
+        category: 'transport',
+        dayNumber: 2,
+        createdAt: '2026-10-27 09:30',
+        paidBy: '公費',
+        note: '已含 CDW 完全免責全險'
+      },
+      {
+        id: 'exp-2',
+        title: '川鰻魚炭烤午餐',
+        amountKrw: 86000,
+        category: 'food',
+        dayNumber: 2,
+        createdAt: '2026-10-27 13:00',
+        paidBy: '公費',
+        note: '雙人份烤白鰻'
+      },
+      {
+        id: 'exp-3',
+        title: 'UMU 石花菜布丁與肥皂',
+        amountKrw: 38000,
+        category: 'shopping',
+        dayNumber: 2,
+        createdAt: '2026-10-27 15:30',
+        paidBy: '蔡小豬',
+        note: '布丁3個+布丁肥皂1入'
+      },
+      {
+        id: 'exp-4',
+        title: '春心之家 烤無骨白帶魚',
+        amountKrw: 92000,
+        category: 'food',
+        dayNumber: 3,
+        createdAt: '2026-10-28 12:30',
+        paidBy: '公費',
+        note: '特大烤無骨白帶魚套餐'
+      },
+      {
+        id: 'exp-5',
+        title: '山茶花之丘雙人門票',
+        amountKrw: 24000,
+        category: 'tickets',
+        dayNumber: 3,
+        createdAt: '2026-10-28 16:15',
+        paidBy: '兔子凌',
+        note: '12,000 韓元 x 2 人'
+      }
+    ];
+
+    // --- 2. STATE ---
+    let currentTab = 'itinerary';
+    let currentAssistantSubTab = 'countdown';
+    let activeDay = 1;
+    let exchangeRate = 0.024;
+    let selectedPayerFilter = 'all';
+
+    // Load from LocalStorage or defaults
+    let itineraryData = [];
+    try {
+      const saved = localStorage.getItem('jeju_offline_itinerary');
+      itineraryData = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DAYS));
+    } catch(e) {
+      itineraryData = JSON.parse(JSON.stringify(DEFAULT_DAYS));
+    }
+
+    let completedSpots = {};
+    try {
+      const saved = localStorage.getItem('jeju_completed_spots');
+      completedSpots = saved ? JSON.parse(saved) : {};
+    } catch(e) {}
+
+    let expenses = [];
+    try {
+      const saved = localStorage.getItem('jeju_offline_expenses');
+      if (saved) {
+        expenses = JSON.parse(saved).map(item => {
+          if (item.paidBy === '我') return { ...item, paidBy: '蔡小豬' };
+          if (item.paidBy === '旅伴') return { ...item, paidBy: '兔子凌' };
+          return item;
+        });
+      } else {
+        expenses = JSON.parse(JSON.stringify(DEFAULT_EXPENSES));
+      }
+    } catch(e) {
+      expenses = JSON.parse(JSON.stringify(DEFAULT_EXPENSES));
+    }
+
+    let checklistChecked = {};
+    try {
+      const saved = localStorage.getItem('jeju_checklist_status');
+      checklistChecked = saved ? JSON.parse(saved) : {};
+    } catch(e) {}
+
+    // --- 3. INIT & CLOCKS ---
+    function init() {
+      updateClocks();
+      setInterval(updateClocks, 10000);
+      initCountdown();
+      setInterval(updateCountdown, 1000);
+
+      renderDaysBar();
+      renderDayView();
+      renderExpenseView();
+      initChecklistState();
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    function updateClocks() {
+      const now = new Date();
+      const jejuH = String((now.getUTCHours() + 9) % 24).padStart(2, '0');
+      const twH = String((now.getUTCHours() + 8) % 24).padStart(2, '0');
+      const m = String(now.getUTCMinutes()).padStart(2, '0');
+      const jejuEl = document.getElementById('jeju-time');
+      const twEl = document.getElementById('tw-time');
+      if (jejuEl) jejuEl.textContent = `${jejuH}:${m}`;
+      if (twEl) twEl.textContent = `${twH}:${m}`;
+    }
+
+    function initCountdown() {
+      updateCountdown();
+    }
+
+    function updateCountdown() {
+      const target = new Date('2026-10-26T19:30:00+09:00').getTime();
+      const now = new Date().getTime();
+      const diff = target - now;
+
+      const dEl = document.getElementById('cnt-days');
+      const hEl = document.getElementById('cnt-hours');
+      const mEl = document.getElementById('cnt-mins');
+      const sEl = document.getElementById('cnt-secs');
+
+      if (!dEl) return;
+
+      if (diff <= 0) {
+        dEl.textContent = '0';
+        hEl.textContent = '0';
+        mEl.textContent = '0';
+        sEl.textContent = '0';
+      } else {
+        dEl.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+        hEl.textContent = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        mEl.textContent = Math.floor((diff / 1000 / 60) % 60);
+        sEl.textContent = Math.floor((diff / 1000) % 60);
+      }
+    }
+
+    // --- 4. TABS NAVIGATION ---
+    function switchMainTab(tab) {
+      currentTab = tab;
+      document.getElementById('tab-itinerary').classList.toggle('hidden', tab !== 'itinerary');
+      document.getElementById('tab-expense').classList.toggle('hidden', tab !== 'expense');
+      document.getElementById('tab-assistant').classList.toggle('hidden', tab !== 'assistant');
+
+      ['itinerary', 'expense', 'assistant'].forEach(t => {
+        const btn = document.getElementById(`nav-btn-${t}`);
+        if (t === tab) {
+          btn.className = 'flex flex-col items-center justify-center py-1.5 rounded-xl transition-colors cursor-pointer text-stone-950 font-bold bg-stone-100';
+        } else {
+          btn.className = 'flex flex-col items-center justify-center py-1.5 rounded-xl transition-colors cursor-pointer text-stone-500 hover:text-stone-900';
+        }
+      });
+
+      if (tab === 'expense') {
+        renderExpenseView();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function switchAssistantSubTab(sub) {
+      currentAssistantSubTab = sub;
+      ['countdown', 'flight', 'hotel', 'checklist'].forEach(s => {
+        const pane = document.getElementById(`subtab-${s}`);
+        const btn = document.getElementById(`subtab-btn-${s}`);
+        if (pane) pane.classList.toggle('hidden', s !== sub);
+        if (btn) {
+          if (s === sub) {
+            btn.className = 'min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer bg-white text-stone-900 shadow-xs';
+          } else {
+            btn.className = 'min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer text-stone-600 hover:text-stone-900';
+          }
+        }
+      });
+      if (window.lucide) lucide.createIcons();
+    }
+
+    // --- 5. ITINERARY RENDERING ---
+    function renderDaysBar() {
+      const container = document.getElementById('days-bar');
+      if (!container) return;
+
+      container.innerHTML = itineraryData.map(d => {
+        const isActive = d.dayNumber === activeDay;
+        return `
+          <button
+            onclick="selectDay(${d.dayNumber})"
+            class="min-h-[48px] px-3.5 py-2 rounded-2xl flex flex-col items-center justify-center text-xs transition-all shrink-0 cursor-pointer ${
+              isActive
+                ? 'bg-stone-900 text-white font-bold shadow-sm'
+                : 'bg-white border border-stone-200/90 text-stone-600 hover:bg-stone-100'
+            }"
+          >
+            <span class="font-mono text-[10px] uppercase opacity-75">DAY ${d.dayNumber}</span>
+            <span class="text-xs font-bold mt-0.5">${d.date} (${d.dayOfWeek})</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectDay(dayNum) {
+      activeDay = dayNum;
+      renderDaysBar();
+      renderDayView();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderDayView() {
+      const day = itineraryData.find(d => d.dayNumber === activeDay) || itineraryData[0];
+      if (!day) return;
+
+      // Update overview card
+      const overview = document.getElementById('day-overview-card');
+      overview.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-stone-200/80 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-md bg-stone-900 text-white text-[11px] font-mono font-bold">
+              DAY ${day.dayNumber}
+            </span>
+            <span class="text-xs font-mono font-medium text-stone-600">${day.fullDateStr}</span>
+          </div>
+          <span class="text-xs text-amber-900 bg-amber-100/80 px-2 py-0.5 rounded-md font-medium">
+            ${day.area}
+          </span>
+        </div>
+
+        <h2 class="text-base sm:text-lg font-bold text-stone-900 font-serif mb-1">
+          ${day.title}
+        </h2>
+        <p class="text-xs text-stone-600 leading-relaxed mb-3">
+          ${day.summary}
+        </p>
+
+        ${day.hotel ? `
+          <div class="bg-white/90 border border-stone-200/90 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div class="flex items-start gap-2">
+              <i data-lucide="hotel" class="w-4 h-4 text-indigo-700 mt-0.5 shrink-0"></i>
+              <div>
+                <div class="text-[11px] text-stone-500 font-medium">今晚入住飯店：</div>
+                <div class="text-xs font-bold text-stone-900">${day.hotel.name}</div>
+                <div class="text-[11px] text-stone-500 font-mono">${day.hotel.address}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="copyToClipboard('${day.hotel.address}')" class="text-[11px] px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg">
+                複製韓文地址
+              </button>
+              ${day.hotel.naverMapUrl ? `
+                <a href="${day.hotel.naverMapUrl}" target="_blank" class="text-[11px] px-2 py-1 bg-[#03C75A] text-white rounded-lg flex items-center gap-1 font-medium">
+                  <span>Naver 導航</span>
+                  <i data-lucide="external-link" class="w-2.5 h-2.5"></i>
+                </a>
+              ` : ''}
+            </div>
+          </div>
+        ` : ''}
+      `;
+
+      // Render Spots
+      document.getElementById('spots-count').textContent = day.items.length;
+      const spotsContainer = document.getElementById('spots-list');
+
+      spotsContainer.innerHTML = day.items.map((spot, idx) => {
+        const isChecked = !!completedSpots[spot.id];
+        return `
+          <div class="bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-xs transition-all ${isChecked ? 'opacity-60 bg-stone-50/70' : ''}">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-start gap-3 min-w-0">
+                <input
+                  type="checkbox"
+                  ${isChecked ? 'checked' : ''}
+                  onchange="toggleSpotChecked('${spot.id}')"
+                  class="w-4 h-4 mt-1 accent-stone-900 rounded cursor-pointer shrink-0"
+                  title="標記已造訪打卡"
+                />
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap mb-1">
+                    <span class="text-xs font-mono font-bold text-stone-500 bg-stone-100 px-2 py-0.5 rounded">
+                      ${spot.time || `第 ${idx + 1} 站`}
+                    </span>
+                    <span class="text-[11px] px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 font-medium">
+                      ${getCategoryLabel(spot.category)}
+                    </span>
+                  </div>
+
+                  <h4 class="text-sm sm:text-base font-bold text-stone-900 ${isChecked ? 'line-through text-stone-400' : ''}">
+                    ${spot.title}
+                  </h4>
+                  ${spot.koreanName ? `<p class="text-xs text-stone-500 font-mono mt-0.5">${spot.koreanName}</p>` : ''}
+                </div>
+              </div>
+
+              ${spot.naverMapUrl ? `
+                <a
+                  href="${spot.naverMapUrl}"
+                  target="_blank"
+                  class="px-2.5 py-1.5 bg-[#03C75A] hover:bg-[#02b350] text-white text-xs rounded-xl flex items-center gap-1 font-medium transition-colors shrink-0 shadow-2xs"
+                >
+                  <span>Naver 地圖</span>
+                  <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+              ` : ''}
+            </div>
+
+            <p class="text-xs text-stone-600 mt-2.5 leading-relaxed">
+              ${spot.about}
+            </p>
+
+            ${spot.tip ? `
+              <div class="mt-2.5 text-xs text-stone-700 bg-amber-50/60 border border-amber-200/60 rounded-xl p-2.5 flex items-start gap-2">
+                <i data-lucide="info" class="w-3.5 h-3.5 text-amber-700 mt-0.5 shrink-0"></i>
+                <span>${spot.tip}</span>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function getCategoryLabel(cat) {
+      const map = {
+        spot: '景點打卡',
+        food: '美食饗宴',
+        cafe: '海景咖啡',
+        shopping: '伴手購物',
+        nature: '自然景觀',
+        transport: '自駕交通',
+        hotel: '飯店住宿',
+        flight: '航班機場'
+      };
+      return map[cat] || '旅行亮點';
+    }
+
+    function toggleSpotChecked(spotId) {
+      completedSpots[spotId] = !completedSpots[spotId];
+      localStorage.setItem('jeju_completed_spots', JSON.stringify(completedSpots));
+      renderDayView();
+    }
+
+    // --- 6. ADD CUSTOM SPOT MODAL ---
+    function openAddSpotModal() {
+      document.getElementById('modal-day-num').textContent = activeDay;
+      document.getElementById('add-spot-modal').classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeAddSpotModal() {
+      document.getElementById('add-spot-modal').classList.add('hidden');
+    }
+
+    function handleFormAddCustomSpot(e) {
+      e.preventDefault();
+      const title = document.getElementById('spot-form-title').value.trim();
+      const korean = document.getElementById('spot-form-korean').value.trim();
+      const time = document.getElementById('spot-form-time').value.trim() || '彈性時間';
+      const category = document.getElementById('spot-form-category').value;
+      const about = document.getElementById('spot-form-about').value.trim() || '自訂私房景點';
+      const url = document.getElementById('spot-form-url').value.trim() || (korean ? `https://map.naver.com/v5/search/${encodeURIComponent(korean)}` : '');
+
+      const newSpot = {
+        id: `custom-${Date.now()}`,
+        time,
+        title,
+        koreanName: korean,
+        category,
+        about,
+        naverMapUrl: url
+      };
+
+      const day = itineraryData.find(d => d.dayNumber === activeDay);
+      if (day) {
+        day.items.push(newSpot);
+        localStorage.setItem('jeju_offline_itinerary', JSON.stringify(itineraryData));
+        renderDayView();
+        closeAddSpotModal();
+        showToast('已成功新增景點至今日行程！');
+      }
+    }
+
+    // --- 7. EXPENSES TRACKER LOGIC ---
+    function renderExpenseView() {
+      const totalKrw = expenses.reduce((s, x) => s + (Number(x.amountKrw) || 0), 0);
+      const totalTwd = Math.round(totalKrw * exchangeRate);
+
+      const totKrwEl = document.getElementById('exp-total-krw');
+      const totTwdEl = document.getElementById('exp-total-twd');
+      if (totKrwEl) totKrwEl.textContent = `₩${totalKrw.toLocaleString()}`;
+      if (totTwdEl) totTwdEl.textContent = `≈ NT$${totalTwd.toLocaleString()}`;
+
+      // Payer breakdown
+      const breakdown = {};
+      expenses.forEach(e => {
+        const p = e.paidBy?.trim() || '未註明';
+        breakdown[p] = (breakdown[p] || 0) + (Number(e.amountKrw) || 0);
+      });
+
+      const summaryChips = document.getElementById('payer-summary-chips');
+      if (summaryChips) {
+        summaryChips.innerHTML = Object.entries(breakdown).map(([name, sum]) => `
+          <div class="inline-flex items-center gap-1.5 text-xs bg-white/95 border border-stone-200 px-2.5 py-1 rounded-lg text-stone-800 font-mono shadow-2xs">
+            <span class="font-semibold text-stone-900 flex items-center gap-1">
+              <i data-lucide="user" class="w-3 h-3 text-amber-700"></i>
+              ${name}
+            </span>
+            <span class="text-amber-800 font-bold">₩${sum.toLocaleString()}</span>
+            <span class="text-[10px] text-stone-400 font-normal">
+              (NT$${Math.round(sum * exchangeRate).toLocaleString()})
+            </span>
+          </div>
+        `).join('');
+      }
+
+      // Filter Chips
+      const allPayers = Array.from(new Set(expenses.map(e => e.paidBy?.trim()).filter(Boolean)));
+      const filterBar = document.getElementById('payer-filter-bar');
+      if (filterBar) {
+        filterBar.innerHTML = `
+          <span class="text-[11px] text-stone-500 shrink-0">篩選付款人：</span>
+          <button
+            type="button"
+            onclick="setExpenseFilter('all')"
+            class="text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer shrink-0 ${
+              selectedPayerFilter === 'all'
+                ? 'bg-stone-900 text-white border-stone-900'
+                : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'
+            }"
+          >
+            全部
+          </button>
+          ${allPayers.map(p => `
+            <button
+              type="button"
+              onclick="setExpenseFilter('${p}')"
+              class="text-[10px] px-2 py-0.5 rounded-md border transition-colors cursor-pointer shrink-0 ${
+                selectedPayerFilter === p
+                  ? 'bg-amber-700 text-white border-amber-700'
+                  : 'bg-stone-50 text-stone-600 border-stone-200 hover:bg-stone-100'
+              }"
+            >
+              ${p}
+            </button>
+          `).join('')}
+        `;
+      }
+
+      // Filtered expenses list
+      const filtered = selectedPayerFilter === 'all'
+        ? expenses
+        : expenses.filter(e => (e.paidBy?.trim() || '未註明') === selectedPayerFilter);
+
+      document.getElementById('exp-history-heading').textContent = `消費明細記錄 (${filtered.length}${selectedPayerFilter !== 'all' ? ` / 共 ${expenses.length}` : ''} 筆)`;
+
+      const listContainer = document.getElementById('expense-items-list');
+      if (filtered.length === 0) {
+        listContainer.innerHTML = `
+          <div class="py-10 text-center text-stone-400 text-xs">
+            目前沒有記帳明細。
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = filtered.map(item => {
+          const twd = Math.round((Number(item.amountKrw) || 0) * exchangeRate);
+          return `
+            <div class="py-3 flex items-center justify-between gap-3 hover:bg-stone-50/70 px-2 rounded-xl transition-colors">
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-xs sm:text-sm font-semibold text-stone-900 truncate">
+                    ${item.title}
+                  </span>
+                  ${item.dayNumber ? `
+                    <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-stone-200/70 text-stone-700 shrink-0">
+                      DAY ${item.dayNumber}
+                    </span>
+                  ` : ''}
+                  ${item.paidBy ? `
+                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-50 border border-amber-200/80 text-amber-800 font-medium inline-flex items-center gap-0.5 shrink-0">
+                      <i data-lucide="user" class="w-2.5 h-2.5 text-amber-700"></i>
+                      ${item.paidBy} 支付
+                    </span>
+                  ` : ''}
+                </div>
+                <div class="flex items-center gap-2 text-[11px] text-stone-400 mt-0.5 font-mono">
+                  <span>${item.createdAt || ''}</span>
+                  ${item.note ? `<span>·</span><span class="text-stone-500">${item.note}</span>` : ''}
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 shrink-0">
+                <div class="text-right font-mono">
+                  <div class="text-xs sm:text-sm font-bold text-stone-900">₩${Number(item.amountKrw).toLocaleString()}</div>
+                  <div class="text-[10px] text-stone-500">≈ NT$${twd.toLocaleString()}</div>
+                </div>
+                <button onclick="deleteExpense('${item.id}')" class="p-1 text-stone-300 hover:text-rose-600 transition-colors cursor-pointer" title="刪除">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function setExpenseFilter(payer) {
+      selectedPayerFilter = payer;
+      renderExpenseView();
+    }
+
+    function setFormPayer(name) {
+      document.getElementById('form-exp-paidby').value = name;
+    }
+
+    function onAmountInputChanged(input) {
+      input.value = input.value.replace(/[^0-9,]/g, '');
+      const raw = parseInt(input.value.replace(/,/g, ''), 10) || 0;
+      const approxEl = document.getElementById('form-exp-approx-twd');
+      if (raw > 0) {
+        approxEl.textContent = `≈ NT$${Math.round(raw * exchangeRate).toLocaleString()}`;
+      } else {
+        approxEl.textContent = '';
+      }
+    }
+
+    function quickAddAmount(val) {
+      const amountInput = document.getElementById('form-exp-amount');
+      const current = parseInt(amountInput.value.replace(/,/g, ''), 10) || 0;
+      amountInput.value = (current + val).toString();
+      onAmountInputChanged(amountInput);
+    }
+
+    function updateQuickConverter() {
+      const input = document.getElementById('calc-krw');
+      input.value = input.value.replace(/[^0-9]/g, '');
+      const krw = parseInt(input.value, 10) || 0;
+      const twd = Math.round(krw * exchangeRate);
+      document.getElementById('calc-twd').textContent = `NT$ ${twd.toLocaleString()}`;
+    }
+
+    function handleFormAddExpense(e) {
+      e.preventDefault();
+      const title = document.getElementById('form-exp-title').value.trim();
+      const amountStr = document.getElementById('form-exp-amount').value.replace(/,/g, '').trim();
+      const amount = parseInt(amountStr, 10);
+      const category = document.getElementById('form-exp-category').value;
+      const paidBy = document.getElementById('form-exp-paidby').value.trim() || '公費';
+      const dayNumber = parseInt(document.getElementById('form-exp-day').value, 10);
+      const note = document.getElementById('form-exp-note').value.trim();
+
+      if (!title || isNaN(amount) || amount <= 0) return;
+
+      const now = new Date();
+      const dateStr = `${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      const newExp = {
+        id: `exp-${Date.now()}`,
+        title,
+        amountKrw: amount,
+        category,
+        paidBy,
+        dayNumber,
+        createdAt: dateStr,
+        note: note || undefined
+      };
+
+      expenses.unshift(newExp);
+      localStorage.setItem('jeju_offline_expenses', JSON.stringify(expenses));
+
+      document.getElementById('form-exp-title').value = '';
+      document.getElementById('form-exp-amount').value = '';
+      document.getElementById('form-exp-approx-twd').textContent = '';
+      document.getElementById('form-exp-note').value = '';
+
+      renderExpenseView();
+      showToast('記帳成功！');
+    }
+
+    function deleteExpense(id) {
+      if (confirm('確定要刪除這筆記帳紀錄嗎？')) {
+        expenses = expenses.filter(x => x.id !== id);
+        localStorage.setItem('jeju_offline_expenses', JSON.stringify(expenses));
+        renderExpenseView();
+      }
+    }
+
+    // --- 8. CHECKLIST ---
+    function initChecklistState() {
+      for (let i = 1; i <= 5; i++) {
+        const chk = document.getElementById(`chk-${i}`);
+        if (chk) chk.checked = !!checklistChecked[`chk-${i}`];
+      }
+      updateChecklistProgress();
+    }
+
+    function onChecklistChange() {
+      for (let i = 1; i <= 5; i++) {
+        const chk = document.getElementById(`chk-${i}`);
+        if (chk) checklistChecked[`chk-${i}`] = chk.checked;
+      }
+      localStorage.setItem('jeju_checklist_status', JSON.stringify(checklistChecked));
+      updateChecklistProgress();
+    }
+
+    function updateChecklistProgress() {
+      let count = 0;
+      for (let i = 1; i <= 5; i++) {
+        if (checklistChecked[`chk-${i}`]) count++;
+      }
+      const el = document.getElementById('checklist-progress');
+      if (el) el.textContent = `${count}/5 完成`;
+    }
+
+    // --- 9. UTILS ---
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`已複製地址：${text}`);
+      }).catch(() => {
+        prompt('請手動複製地址：', text);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    function resetAllData() {
+      if (confirm('確定要將所有行程資料恢復為預設官方行程嗎？自訂新增的景點將會清除。')) {
+        localStorage.removeItem('jeju_offline_itinerary');
+        localStorage.removeItem('jeju_completed_spots');
+        itineraryData = JSON.parse(JSON.stringify(DEFAULT_DAYS));
+        completedSpots = {};
+        renderDaysBar();
+        renderDayView();
+        showToast('行程已重置為預設狀態');
+      }
+    }
+
+    // Start App
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
