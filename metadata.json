@@ -1,0 +1,6 @@
+{
+  "name": "濟州島自駕秋旅手冊 - Jeju Road Trip Guide",
+  "description": "濟州島8天7夜自駕旅行互動手冊，包含完整每日行程、Naver 地圖精準自駕導航、景點打卡清單、美食購物攻略、即時記帳與旅遊小幫手。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
